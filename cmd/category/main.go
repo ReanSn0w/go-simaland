@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ReanSn0w/simaland/pkg/simaland"
+	"github.com/ReanSn0w/go-simaland/pkg/simaland"
 	"github.com/go-pkgz/lgr"
 	"gopkg.in/yaml.v3"
 )

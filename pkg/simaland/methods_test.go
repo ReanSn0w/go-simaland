@@ -3,7 +3,7 @@ package simaland_test
 import (
 	"testing"
 
-	"github.com/ReanSn0w/simaland/pkg/simaland"
+	"github.com/ReanSn0w/go-simaland/pkg/simaland"
 	"github.com/go-pkgz/lgr"
 )
 
