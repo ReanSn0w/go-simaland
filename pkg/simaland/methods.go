@@ -78,51 +78,30 @@ func (c *Client) FindSettlement(name string) (ListResponse[Settlement], error) {
 }
 
 // CheckuotByProducts - создание заказа без использования корзины
-func (c *Client) CheckoutByProducts(email, phone, name string, cart map[int64]int) (interface{}, error) {
-	type CartItem struct {
-		SID int64 `json:"item_sid"`
-		QTY int   `json:"qty"`
-	}
-
-	var res any
+func (c *Client) CheckoutByProducts(email, phone, name string, cart map[int64]int) (*Order, error) {
+	res := &Order{}
 	err := c.post("order/checkout-by-products/", map[string]any{
-		"comment":       "", //
-		"contact_email": email,
-		"contact_phone": phone,
-		"contact_name":  name,
-		"items_data": func() []CartItem {
-			output := make([]CartItem, 0)
-
-			for k, v := range cart {
-				output = append(output, CartItem{
-					SID: k,
-					QTY: v,
-				})
-			}
-
-			return output
-		}(),
+		"comment":                  "", //
+		"contact_email":            email,
+		"contact_phone":            phone,
+		"contact_name":             name,
+		"items_data":               newCartItemFromMap(cart),
 		"phone":                    phone,
 		"person_type":              1,
 		"manager_action":           3,
 		"contact_person":           name,
 		"is_use_digital_signature": false,
-		"payment_type_id":          1, // Оплата картой
 		"delivery_type_id":         1,
 		"pickup_type_id":           1,
 		"deliveryTypeId":           1,
-		"paymentTypeId":            1,
-	}, &res)
+		"paymentTypeId":            1, // Идентификатор оплаты картой
+	}, res)
 	return res, err
 }
 
-func Map[I any, O any](input []I, prepare func(I) O) []O {
-	l := len(input)
-	output := make([]O, l)
-
-	for i := 0; i < l; i++ {
-		output[i] = prepare(input[i])
-	}
-
-	return output
+// GetOrder - Получение заказа по его идентификатору
+func (c *Client) GetOrder(id int64) (*Order, error) {
+	res := &Order{}
+	err := c.get(fmt.Sprintf("order/%v", id), res)
+	return res, err
 }

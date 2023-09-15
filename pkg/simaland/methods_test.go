@@ -138,3 +138,13 @@ func TestClient_CheckoutByProducts(t *testing.T) {
 
 	t.Log(data)
 }
+
+func TestClient_GetOrder(t *testing.T) {
+	data, err := cl.GetOrder(45808024)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Log(data)
+}

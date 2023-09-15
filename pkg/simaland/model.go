@@ -81,10 +81,10 @@ type Item struct {
 		Version int    `json:"version,omitempty"`
 	} `json:"photos,omitempty"`
 
-	PhotoVersions []struct {
-		Number  string `json:"number,omitempty"`
-		Version string `json:"version,omitempty"`
-	} `json:"photoVersions,omitempty"`
+	// PhotoVersions []struct {
+	// 	Number  string `json:"number,omitempty"`
+	// 	Version string `json:"version,omitempty"`
+	// } `json:"photoVersions,omitempty"`
 
 	// ActionUrls struct {
 	// 	Offer string `json:"offer,omitempty"`
@@ -308,4 +308,62 @@ type DeliveryPoint struct {
 	ID           int64  `json:"id"`
 	SettlementID int64  `json:"settlement_id"`
 	Address      string `json:"address"`
+}
+
+type Order struct {
+	ID            int64       `json:"id"`
+	UserID        int64       `json:"user_id"`
+	ManagerID     int64       `json:"manager_id"`
+	PaymentID     interface{} `json:"payment_id"`
+	PaymentTypeID int64       `json:"payment_type_id"`
+
+	Subtotal int64 `json:"subtotal"`
+	Discount int64 `json:"discount"`
+	Total    int64 `json:"total"`
+
+	PaymentURL string `json:"payment_form,omitempty"`
+
+	Comment                       string `json:"comment,omitempty"`
+	ContactPerson                 string `json:"contact_person,omitempty"`
+	IsUseDigitalSignature         bool   `json:"is_use_digital_signature,omitempty"`
+	ManagerAction                 int64  `json:"manager_action,omitempty"`
+	PersonType                    int64  `json:"person_type,omitempty"`
+	IsTemperatureLimitsAgreed     bool   `json:"is_temperature_limits_agreed,omitempty"`
+	IsOffice                      bool   `json:"is_office,omitempty"`
+	HasItemWithByThePieceAddition bool   `json:"has_item_with_by_the_piece_addition,omitempty"`
+	Email                         string `json:"email,omitempty"`
+	CartCreatedAt                 string `json:"cart_created_at,omitempty"`
+	ItemsCount                    int64  `json:"items_count,omitempty"`
+	UnitCount                     int64  `json:"unit_count,omitempty"`
+	GoogleCid                     string `json:"google_cid,omitempty"`
+	AssemblyCost                  int64  `json:"assembly_cost,omitempty"`
+	StatusID                      int64  `json:"status_id,omitempty"`
+	NotificationTypeID            int64  `json:"notification_type_id,omitempty"`
+	IsRemote                      bool   `json:"is_remote,omitempty"`
+	IsSmallWholesale              bool   `json:"is_small_wholesale,omitempty"`
+	ManagerComment                string `json:"manager_comment,omitempty"`
+	IsReorderDenied               bool   `json:"is_reorder_denied,omitempty"`
+	HasJewelry                    bool   `json:"has_jewelry,omitempty"`
+	CreatedAt                     string `json:"created_at,omitempty"`
+	UpdatedAt                     string `json:"updated_at,omitempty"`
+	IsEnqueued                    bool   `json:"is_enqueued,omitempty"`
+	DoneInfo                      string `json:"done_info,omitempty"`
+}
+
+func newCartItemFromMap(m map[int64]int) []cartItem {
+	res := []cartItem{}
+
+	for k, v := range m {
+		res = append(res, cartItem{
+			SID: k,
+			QTY: v,
+		})
+	}
+
+	return res
+}
+
+type cartItem struct {
+	SID int64 `json:"item_sid"`
+	QTY int   `json:"qty"`
 }
