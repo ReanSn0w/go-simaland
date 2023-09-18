@@ -46,6 +46,7 @@ func (c *Client) ListItems(page int, count int, category int) (*ListResponse[Ite
 		SetCount(count),
 		SetPage(page),
 		SetQuery("category_id", fmt.Sprint(category)),
+		SetQuery("expand", "description"),
 	)
 	return res, err
 }
@@ -53,7 +54,9 @@ func (c *Client) ListItems(page int, count int, category int) (*ListResponse[Ite
 // GetItem - Получает товар из Simaland
 func (c *Client) GetItem(id int) (*Item, error) {
 	res := &Item{}
-	err := c.get(fmt.Sprintf("item/%v", id), res)
+	err := c.get(fmt.Sprintf("item/%v", id), res,
+		SetQuery("expand", "description"),
+	)
 	return res, err
 }
 

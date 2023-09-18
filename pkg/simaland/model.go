@@ -81,6 +81,8 @@ type Item struct {
 		Version int    `json:"version,omitempty"`
 	} `json:"photos,omitempty"`
 
+	Description string `json:"description,omitempty"`
+
 	// PhotoVersions []struct {
 	// 	Number  string `json:"number,omitempty"`
 	// 	Version string `json:"version,omitempty"`

@@ -60,7 +60,7 @@ func TestClient_ListItems(t *testing.T) {
 }
 
 func TestClient_GetItem(t *testing.T) {
-	item, err := cl.GetItem(6600428)
+	item, err := cl.GetItem(4381727)
 	if err != nil {
 		t.Error(err)
 		return
