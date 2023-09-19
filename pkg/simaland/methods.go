@@ -91,13 +91,13 @@ func (c *Client) CheckoutByProducts(email, phone, name string, cart map[int64]in
 		"items_data":               newCartItemFromMap(cart),
 		"phone":                    phone,
 		"person_type":              1,
-		"manager_action":           3,
+		"manager_action":           3, // Перезвонить сейчас
 		"contact_person":           name,
 		"is_use_digital_signature": false,
 		"delivery_type_id":         1,
 		"pickup_type_id":           1,
 		"deliveryTypeId":           1,
-		"paymentTypeId":            1, // Идентификатор оплаты картой
+		"paymentTypeId":            4, // Согласовать оплату с менеджером
 	}, res)
 	return res, err
 }
