@@ -46,7 +46,7 @@ func (c *Client) ListItems(page int, count int, category int) (*ListResponse[Ite
 		SetCount(count),
 		SetPage(page),
 		SetQuery("category_id", fmt.Sprint(category)),
-		SetQuery("expand", "description"),
+		SetQuery("expand", "description,category_id"),
 	)
 	return res, err
 }
